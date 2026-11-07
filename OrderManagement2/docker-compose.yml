@@ -9,6 +9,7 @@ services:
   mysql:
     image: mysql:8.0.46
     environment:
+      MYSQL_ROOT_PASSWORD: RootAdmin123
       MYSQL_DATABASE: docker
       MYSQL_USER: student
       MYSQL_PASSWORD: RootPass123
