@@ -1,13 +1,18 @@
 services:
   app:
     build: .
+    image: akhilyasa/order-management:latest
     ports:
       - "8090:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: on-failure
     networks:
       - my-network
 
   mysql:
-    image: mysql:8.0.46
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: RootAdmin123
       MYSQL_DATABASE: docker
@@ -19,6 +24,11 @@ services:
       - my-network
     volumes:
       - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pRootAdmin123"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
 volumes:
   mysql-data:
