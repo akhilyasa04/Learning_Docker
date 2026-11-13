@@ -48,7 +48,7 @@ public class ItemController {
 	public ResponseEntity<List<ItemResponseDTO>> getAllItems(){
 		List<ItemResponseDTO> allItems = itemService.getAllItems();
 		
-		return ResponseEntity.ok(allItems);
+		return new ResponseEntity<List<ItemResponseDTO>>(allItems, HttpStatus.ACCEPTED);
 	}
 	
 	@GetMapping("/{id}")
